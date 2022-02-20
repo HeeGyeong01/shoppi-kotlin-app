@@ -1,7 +1,6 @@
 package screen
 
 class ShoppingHome {
-
     fun start(){
         showWelcomeMessage()
         showCategories()
@@ -22,6 +21,4 @@ class ShoppingHome {
         val shoppingCategory = ShoppingCategory()
         shoppingCategory.showCategories()
     }
-
-
 }
