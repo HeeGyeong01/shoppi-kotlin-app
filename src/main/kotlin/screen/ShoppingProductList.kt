@@ -1,4 +1,5 @@
 package screen
+import LINE_DIVIDER
 import data.CartItems
 import data.Product
 import extensions.getNotEmptyInt
@@ -45,7 +46,7 @@ class ShoppingProductList {
     private fun showCartOption(categoryProducts: List<Product>, selectedCategory: String) {
         println(
             """
-                ***=======================***
+                $LINE_DIVIDER
                 장바구니에 담을 상품 번호를 입력해주세요.
             """.trimIndent()
         )

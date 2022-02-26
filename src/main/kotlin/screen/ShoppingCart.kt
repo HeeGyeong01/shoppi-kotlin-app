@@ -1,5 +1,6 @@
 package screen
 
+import LINE_DIVIDER
 import data.CartItems
 
 class ShoppingCart {
@@ -10,7 +11,7 @@ class ShoppingCart {
             println(products.keys.joinToString( //keys는 product의 키값을 set로 return함.
                 separator = ", /n",
                 prefix = """
-                    ***=======================***
+                    $LINE_DIVIDER
                     장바구니에 담은 상품 목록입니다.
                     
                 """.trimIndent()
