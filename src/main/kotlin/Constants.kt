@@ -1,1 +1,1 @@
-const val LINE_DIVIDER = "***=======================***"
+const val LINE_DIVIDER = "***=============================***"

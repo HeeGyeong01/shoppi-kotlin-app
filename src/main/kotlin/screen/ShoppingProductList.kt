@@ -5,7 +5,7 @@ import data.Product
 import extensions.getNotEmptyInt
 import extensions.getNotEmptyString
 
-class ShoppingProductList: Screen() {
+class ShoppingProductList(private val selectedCategory: String): Screen() {
     private val products = arrayOf(
         Product("패션", "겨울 패딩"),
         Product("패션", "겨울 바지"),
@@ -21,12 +21,12 @@ class ShoppingProductList: Screen() {
         //product -> product.categoryLabel
         it.categoryLabel
     }
-    fun showProducts(selectedCategory: String){
+    fun showProducts(){
         ScreenStack.push(this)
         val categoryProducts = categories[selectedCategory]
         if(!categoryProducts.isNullOrEmpty()){
             println("""
-                ***==================================***
+                $LINE_DIVIDER
                 선택하신 [$selectedCategory] 카테고리 상품입니다.
             """.trimIndent())
 
@@ -38,13 +38,13 @@ class ShoppingProductList: Screen() {
 //            for(index in 0 until productSize){
 //                println("${index}. ${categoryProducts[index].name}")
 //            } //여기까지 코드: 고른 카테고리 안의 상품들 보여줌.
-            showCartOption(categoryProducts,selectedCategory)
+            showCartOption(categoryProducts)
         }else{
             showEmptyProductMessage(selectedCategory)
         }
     }
 
-    private fun showCartOption(categoryProducts: List<Product>, selectedCategory: String) {
+    private fun showCartOption(categoryProducts: List<Product>) {
         println(
             """
                 $LINE_DIVIDER
@@ -55,16 +55,20 @@ class ShoppingProductList: Screen() {
         categoryProducts.getOrNull(selectedIndex)?.let{ //존재한다면 cartItem에 추가
             //product -> 방식으로 코드 써주는 것도 가독성에 좋을 듯.
             CartItems.addProduct(it)
+            println("장바구니로 ${it.name}이(가) 이동되었습니다. ")
             println("=> 장바구니로 이동하시려면 #을, 계속 쇼핑하시려면 *를 입력해주세요.")
             val answer = readLine().getNotEmptyString()
             if(answer == "#"){
                 val shoppingCart = ShoppingCart()
                 shoppingCart.showCartItems()
             }else if(answer == "*"){
-                showProducts(selectedCategory)
+                showProducts()
             }else{
                 //TODO 그 외 값을 입력한 경우 처리
             }
+        } ?: run { //입력한 인덱스 번호에 해당하는 Product가 없는 경우
+            println("$selectedIndex 번은 목록에 없는 상품 번호입니다. 다시 입력해 주세요")
+            showProducts()
         }
 
     }
