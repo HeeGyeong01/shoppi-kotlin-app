@@ -3,10 +3,11 @@ package screen
 import LINE_DIVIDER
 import data.CartItems
 
-class ShoppingCart {
+class ShoppingCart: Screen() {
     private val products = CartItems.products
 
     fun showCartItems(){
+        ScreenStack.push(this)
         if(products.isNotEmpty()){
             println(products.keys.joinToString( //keys는 product의 키값을 set로 return함.
                 separator = ", /n",
